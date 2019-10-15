@@ -1,2 +1,3 @@
-一个基于网页音乐播放器
+一个基于NeteaseCloudMusicApi的网页音乐播放器   
+
 学习中。。。
