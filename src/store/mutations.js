@@ -26,6 +26,8 @@ export default {
     },
     getMvId(state,e){
          state.mvId = e
+    },
+    getSingerId(state,e){
+        state.singerId = e
     }
-   
 }

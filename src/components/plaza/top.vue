@@ -32,6 +32,7 @@
 </template>
 <script>
 export default {
+  name:'plazaTop',
   data() {
     return {
       loading: false,

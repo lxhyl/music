@@ -5,11 +5,17 @@
         <p style="width:100%;height:40px;line-height:40px;">
           <i class="el-icon-back" @click="goToSongList" style="position:absolute;left:20px;"></i>
           {{ songInfo[0].name }}
+          <img
+            v-if="likeThisSongImg"
+            src="../assets/liked.png"
+            class="likeSong"
+          />
+          <img v-else @click="likeThisSong" src="../assets/like.png" class="likeSong" />
         </p>
       </el-header>
 
       <div>
-        <img :src="songInfo[0].al.picUrl" />
+        <img class="songimg" :src="songInfo[0].al.picUrl" />
         <div class="musicWords" ref="lyricList">
           <p
             v-for="(item,index) in lyricObj.lines"
@@ -61,9 +67,11 @@
 </template>
 <script>
 import { constants } from "crypto";
+
 import Lyric from "lyric-parser";
 export default {
   inject: ["reload"],
+  name: "play",
   data() {
     return {
       id: "",
@@ -90,7 +98,8 @@ export default {
       lyricObj: "",
       playingLyric: "",
       //相似的5首歌
-      simiFiveSongs: []
+      simiFiveSongs: [],
+      likeThisSongImg: false
     };
   },
   created() {
@@ -118,9 +127,9 @@ export default {
   },
   mounted() {
     //如果网速慢获取不到DOM会报错  延时2s后再执行
-    setTimeout(() => {
-      this.getAudio();
-    }, 2000);
+    // setTimeout(() => {
+    this.getAudio();
+    // }, 2000);
     //获取相似歌曲
     this.sameSongs();
     //获取歌词
@@ -128,6 +137,7 @@ export default {
   },
   methods: {
     goToSongList() {
+      this.lyricObj.stop();
       let page = this.$store.state.previousPage;
       this.$router.push(page);
     },
@@ -187,10 +197,12 @@ export default {
       const audio = document.getElementById("music");
       audio.currentTime = e;
       this.songNowTime = e;
+
       this.lyricObj.seek(e * 1000);
     },
     //评论组件
     goComment() {
+      this.lyricObj.stop();
       this.$router.push("comment");
     },
     //相似歌曲
@@ -207,6 +219,7 @@ export default {
     },
     //上一首
     last() {
+      this.lyricObj.stop();
       const id = this.simiFiveSongs[0].id;
       this.$store.commit("getSongId", id);
       this.reload();
@@ -228,9 +241,9 @@ export default {
         .then(res => {
           this.lyric = res.data.lrc.lyric;
           this.lyricObj = new Lyric(res.data.lrc.lyric, this.handler);
-        
-        if(!this.loading){     
-          this.lyricObj.play();
+
+          if (!this.loading) {
+            this.lyricObj.play();
           }
         })
         .catch(err => {
@@ -246,11 +259,38 @@ export default {
           document.getElementById(lineNum - 1).style.color = "#9E9E9E";
         }
       }
+    },
+    //喜欢本首音乐
+    likeThisSong() {
+      const id = this.$store.state.songId;
+      this.$axios
+        .get("/api/like?id=" + id)
+        .then(res => {
+         
+          if (res.data.code == 200) {
+            this.likeThisSongImg = true;
+            this.$message({
+              type: "success",
+              message: "已添加至喜欢列表"
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };
 </script>
 <style scoped>
+.likeSong {
+  width: 30px;
+  height: 30px;
+  line-height: 40px;
+  position: absolute;
+  right: 10px;
+  margin-top: 5px;
+}
 .el-icon-back:before {
   content: "\E6EA";
 }
@@ -270,7 +310,7 @@ export default {
   line-height: 40px;
   margin: 0 30px;
 }
-img {
+.songimg {
   width: 200px;
   height: 200px;
   border-radius: 100%;

@@ -34,6 +34,7 @@ export default {
     // }
       this.$store.commit("getUserId", id);
   },
+  
   methods: {
     ok() {
       // 获取用户id
@@ -59,12 +60,15 @@ export default {
               this.login.password
           )
           .then(res => {
-           
+            console.log(res)
             //获取用户ID传入store
             this.$store.commit("getUserId", res.data.account.id);
             const id = res.data.account.id;
             //将用户ID本地存储
             localStorage.setItem("id", JSON.stringify(id));
+            //设置cookie
+
+
             this.$message({
               message: "登陆成功",
               type: "success"

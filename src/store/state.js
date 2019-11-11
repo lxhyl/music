@@ -7,6 +7,7 @@ const state = {
     topListName:'',//榜单名
     search:{}, //搜索内容
     videoId:'',//视频ID
-   
+    mvId:'',//MVid
+    singerId:''//歌手ID
 }
 export default state

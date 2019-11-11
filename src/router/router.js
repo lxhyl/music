@@ -30,27 +30,30 @@ import search from "../components/search.vue"
 import song from "../components/search/song.vue"
 import songer from "../components/search/singer.vue"
 import searchmv from "../components/search/mv.vue"
-
+//歌手单曲列表
+import singersongs from "../components/singerSongList.vue"
+//电台
+import fm from "../components/fm.vue"
 export default new Router({
     mode: 'hash',
     routes: [
-        {
+        {  
             path: '/',
             name: 'login',
             component: login
-        }, {
+        }, {  
             path: '/home',
             name: 'home',
             component: home
-        }, {
+        }, {  
             path: '/songList',
             name: 'songList',
             component: songList
-        }, {
+        }, {   
             path: '/play',
             name: 'play',
             component: play
-        }, {
+        }, {  
             path: '/video',
             name: 'video',
             component: video
@@ -83,6 +86,14 @@ export default new Router({
             name: 'list',
             component: list
         }, {
+            path:'/singersongs',
+            name:'singersongs',
+            component:singersongs
+        },{
+            path:'/fm',
+            name:'fm',
+            component:fm
+        },{
             path: '/search',
             name: 'search',
             component: search,
@@ -101,7 +112,8 @@ export default new Router({
                     component: songer
                 }
             ]
-        }
+        } 
+        
     ]
 })
 //下列代码解决当已经在此页面，再次点击路由到此页面就会报错的问题。

@@ -3,7 +3,8 @@
     <div v-if="getDataFinish" style="width:100%;">
       <div v-for="(item,index) in songs" @click="getSong(item.id)" :key="index" class="songItem">
         <p>{{item.name}}</p>
-        <span v-for="(art,index) in item.artists" :key="index">{{art.name}} &nbsp;</span>
+        <span v-for="(art,index) in item.artists" :key="index">
+            {{art.name}} &nbsp;</span>
       </div>
     </div>
     <div v-else style="text-align:center;width:100%;">

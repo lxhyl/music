@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <router-view v-if="isRouterAlive"></router-view>
+    <!-- 保存组件状态 组件 -->
+    <keep-alive include="home,plaza,plazaMv,plazaTop,plazaRecommend">
+    <router-view v-if="isRouterAlive" ></router-view>
+    </keep-alive>
     <div class="playBar" v-if="openPlayBar"></div>
   </div>
 </template>

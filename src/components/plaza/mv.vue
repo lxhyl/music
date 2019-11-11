@@ -55,6 +55,7 @@
 </template>
 <script>
 export default {
+  name:'plazaMv',
   data() {
     return {
   
@@ -67,6 +68,7 @@ export default {
     };
   },
   created() {
+    
     //推荐MV
     this.$axios
       .get("/api/personalized/mv")
@@ -83,7 +85,7 @@ export default {
       .then(res => {
       
        this.newMv = this.newMv.concat(res.data.data);
-      
+       this.getPersonalized = true;
       })
       .catch(err => {
         console.log(err);
@@ -94,7 +96,7 @@ export default {
     goToHome() {
       this.$router.push("plaza");
     },
-
+    
     getPersonalizedMv(e) {
       this.goToPlayMv = false;
       this.$axios
@@ -103,6 +105,7 @@ export default {
           this.$store.commit("getMvId", res.data.data.id);
           this.$store.commit("goToPreviousPage", "mv");
           this.$router.push("/playmv");
+           this.goToPlayMv = true;
         })
         .catch(err => {
           console.log(err);
@@ -132,7 +135,8 @@ export default {
   text-align: left;
   top: 0;
   left: 0;
-  margin-top: 10px;
+  margin-top: 0;
+  font-size: 12px;
   z-index: 999;
   color: #fafafa;
 }

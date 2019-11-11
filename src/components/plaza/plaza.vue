@@ -60,6 +60,7 @@
 </template>
 <script>
 export default {
+  name:'plaza',
   data() {
     return {
       banners: [],

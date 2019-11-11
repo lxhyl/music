@@ -1,7 +1,7 @@
 <template>
   <div class="artistsContainer">
     <div v-if="getDataFinish" style="width:100%;">
-      <div v-for="(item,index) in artists" :key="index" class="artistItem">
+      <div @click="singerSongList(item.id)"  v-for="(item,index) in artists" :key="index" class="artistItem">
         <el-image shape="square"  :src="item.picUrl">
           <div slot="placeholder" class="image-slot">
             <i class="el-icon-loading"></i>
@@ -31,12 +31,20 @@ export default {
     this.$axios
       .get("/api/search?keywords=" + search.keywords + "&type=" + search.select)
       .then(res => {
+       
         this.artists = this.artists.concat(res.data.result.artists);
        this.getDataFinish = true;
       })
       .catch(err => {
         console.log(err);
       });
+  },
+  methods:{
+    singerSongList(e){
+      this.$store.commit('getSingerId',e);
+      this.$store.commit('goToPreviousPage','search')
+      this.$router.push('/singersongs');
+    }
   }
 };
 </script>
