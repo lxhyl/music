@@ -50,16 +50,15 @@ export default {
     };
   },
   watch: {
-  
-    
   },
   computed: {},
+  
   created() {
-
+    this.isLogin();
   },
   mounted() {
     this.$axios
-      .get("/api/search/hot/detail")
+      .get("http://zhangpengfan.xyz:3000/search/hot/detail")
       .then(res => {
         this.hot = this.hot.concat(res.data.data);
       })

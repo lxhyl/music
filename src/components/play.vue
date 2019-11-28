@@ -103,10 +103,11 @@ export default {
     };
   },
   created() {
+     this.isLogin();
     //歌曲详情
     this.songId = this.$store.state.songId;
     this.$axios
-      .get("/api/song/detail?ids=" + this.songId)
+      .get("http://zhangpengfan.xyz:3000/song/detail?ids=" + this.songId)
       .then(res => {
         this.songInfo = this.songInfo.concat(res.data.songs);
         this.getDataFinish = true;
@@ -116,13 +117,13 @@ export default {
       });
     //歌曲资源
     this.$axios
-      .get("/api/song/url?id=" + this.songId)
+      .get("http://zhangpengfan.xyz:3000/song/url?id=" + this.songId)
       .then(res => {
         this.songUrl = this.songUrl.concat(res.data.data);
         this.getMusicUrlFinish = true;
       })
       .catch(err => {
-        console.log(err);
+       
       });
   },
   mounted() {
@@ -209,7 +210,7 @@ export default {
     sameSongs() {
       const id = this.$store.state.songId;
       this.$axios
-        .get("/api/simi/song?id=" + id)
+        .get("http://zhangpengfan.xyz:3000/simi/song?id=" + id)
         .then(res => {
           this.simiFiveSongs = this.simiFiveSongs.concat(res.data.songs);
         })
@@ -237,7 +238,7 @@ export default {
     getLyric() {
       const id = this.$store.state.songId;
       this.$axios
-        .get("/api/lyric?id=" + id)
+        .get("http://zhangpengfan.xyz:3000/lyric?id=" + id)
         .then(res => {
           this.lyric = res.data.lrc.lyric;
           this.lyricObj = new Lyric(res.data.lrc.lyric, this.handler);
@@ -247,12 +248,13 @@ export default {
           }
         })
         .catch(err => {
-          console.log(err);
+         
         });
     },
     //lyric  歌词跳转
     handler({ lineNum, txt }) {
       if (document.getElementById(lineNum)) {
+        
         document.getElementById(lineNum).scrollIntoView();
         document.getElementById(lineNum).style.color = "#409EFF";
         if (lineNum >= 1) {
@@ -264,9 +266,8 @@ export default {
     likeThisSong() {
       const id = this.$store.state.songId;
       this.$axios
-        .get("/api/like?id=" + id)
-        .then(res => {
-         
+        .get("http://zhangpengfan.xyz:3000/like?id=" + id)
+        .then(res => {    
           if (res.data.code == 200) {
             this.likeThisSongImg = true;
             this.$message({
@@ -276,7 +277,7 @@ export default {
           }
         })
         .catch(err => {
-          console.log(err);
+         
         });
     }
   }

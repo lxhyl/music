@@ -27,6 +27,9 @@ export default {
         video:{}
     };
   },
+  created(){
+ this.isLogin();
+  },
   mounted() {
     //获取视频详情
     this.getVideoDetail();
@@ -42,7 +45,7 @@ export default {
       const id = this.$store.state.videoId;
      
       this.$axios
-        .get("/api/video/detail?id=" + id)
+        .get("http://zhangpengfan.xyz:3000/video/detail?id=" + id)
         .then(res => {
        
           this.video = res.data.data
@@ -56,7 +59,7 @@ export default {
       const id = this.$store.state.videoId;
      
       this.$axios
-        .get("/api/video/url?id=" + id)
+        .get("http://zhangpengfan.xyz:3000/video/url?id=" + id)
         .then(res => {
          
           this.videoUrl = res.data.urls[0].url;

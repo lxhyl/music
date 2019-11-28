@@ -39,11 +39,14 @@ export default {
       name:''
     };
   },
+  created(){
+ this.isLogin();
+  },
   mounted() {
      this.name = this.$store.state.topListName;
     const topListIdx = this.$store.state.topListIdx;
     this.$axios
-      .get("/api/top/list?idx=" + topListIdx)
+      .get("http://zhangpengfan.xyz:3000/top/list?idx=" + topListIdx)
       .then(res => {
         this.list = this.list.concat(res.data.playlist.tracks);
         this.getDataFinish = true;

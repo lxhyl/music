@@ -19,6 +19,7 @@ export default {
     };
   },
   created(){
+     this.isLogin();
       //获取MV地址
     this.getData();
   },
@@ -29,7 +30,7 @@ export default {
     },
     getData(){
         const id = this.$store.state.mvId
-        this.$axios.get('/api//mv/url?id='+id)
+        this.$axios.get('http://zhangpengfan.xyz:3000//mv/url?id='+id)
         .then(res => {
            
             this.url = res.data.data.url;

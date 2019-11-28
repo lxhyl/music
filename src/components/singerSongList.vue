@@ -43,6 +43,7 @@ export default {
     };
   },
   created() {
+     this.isLogin();
     //获取歌手信息
     this.getData();
   },
@@ -50,7 +51,7 @@ export default {
     getData() {
       var id = this.$store.state.singerId;
       this.$axios
-        .get("/api/artists?id=" + id)
+        .get("http://zhangpengfan.xyz:3000/artists?id=" + id)
         .then(res => {
       
           this.artist = res.data.artist;

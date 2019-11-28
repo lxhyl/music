@@ -67,9 +67,13 @@ export default {
       ]
     };
   },
+  created(){
+ this.isLogin();
+  
+  },
   mounted() {
     this.$axios
-      .get("/api/toplist")
+      .get("http://zhangpengfan.xyz:3000/toplist")
       .then(res => {
         this.toplist = this.toplist.concat(res.data.list);
         this.loading = true;

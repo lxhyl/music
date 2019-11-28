@@ -72,7 +72,7 @@ export default {
   mounted() {
     //banners数据
     this.$axios
-      .get("/api/banner?type=1")
+      .get("http://zhangpengfan.xyz:3000/banner?type=1")
       .then(res => {
         this.banners = this.banners.concat(res.data.banners);
         this.getBinnersFinish = true;
@@ -82,7 +82,7 @@ export default {
       });
     //新歌推荐
     this.$axios
-      .get("/api/personalized/newsong")
+      .get("http://zhangpengfan.xyz:3000/personalized/newsong")
       .then(res => {
         this.list = this.list.concat(res.data.result);
       

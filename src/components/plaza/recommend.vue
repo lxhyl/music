@@ -27,19 +27,22 @@
 </template>
 <script>
 export default {
-  name:'plazaRecommend',
+  name: "plazaRecommend",
   data() {
     return {
       loading: false,
       dailySongs: []
     };
   },
+  created() {
+    this.isLogin();
+  },
   mounted() {
     this.$axios
-      .get("api/recommend/songs")
+      .get("http://zhangpengfan.xyz:3000/recommend/songs")
       .then(res => {
         this.dailySongs = this.dailySongs.concat(res.data.data.dailySongs);
-       
+
         this.loading = true;
       })
       .catch(err => {
@@ -48,13 +51,12 @@ export default {
   },
   methods: {
     goToHome() {
-     
-      this.$router.push('plaza');
+      this.$router.push("plaza");
     },
     getMusic(id) {
       this.$store.commit("getSongId", id);
       this.$store.commit("goToPreviousPage", "recommend");
-     
+
       this.$router.push("play");
     }
   }

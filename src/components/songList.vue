@@ -41,13 +41,16 @@ export default {
       name:''
     };
   },
+  created(){
+ this.isLogin();
+  },
   mounted() {
   this.name = this.$store.state.topListName;
     this.songListId = this.$store.state.songListId;
     const id = this.songListId;
 
     this.$axios
-      .get("/api/playlist/detail?id=" + id)
+      .get("http://zhangpengfan.xyz:3000/playlist/detail?id=" + id)
       .then(res => {
         this.list = this.list.concat(res.data.playlist.tracks);
         this.getDataFinish = true;

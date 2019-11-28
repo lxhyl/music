@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="videoContainer">
-      <div @click="getVideo(item.vid)" v-for="(item,index) in videoList" :key="index" class="videoItem">
+      <div
+        @click="getVideo(item.vid)"
+        v-for="(item,index) in videoList"
+        :key="index"
+        class="videoItem"
+      >
         <span class="playTime">播放次数：{{item.playTime}}次</span>
         <el-image :src="item.coverUrl">
           <div slot="placeholder" class="image-slot">
@@ -22,31 +27,31 @@ export default {
       videoList: []
     };
   },
+  created() {
+    this.isLogin();
+  },
   mounted() {
     let search = this.$store.state.search;
     this.$axios
       .get(
-        "/api/search?limit=10&keywords=" +
+        "http://zhangpengfan.xyz:3000/search?limit=10&keywords=" +
           search.keywords +
           "&type=" +
           search.select
       )
       .then(res => {
-      
         this.videoList = this.videoList.concat(res.data.result.videos);
-       
       })
       .catch(err => {
         console.log(err);
       });
   },
   methods: {
-      getVideo(e){
-
-         this.$store.commit('getVideoId',e)
-         this.$store.commit('goToPreviousPage','/search/searchmv')
-         this.$router.push('/video')
-      }
+    getVideo(e) {
+      this.$store.commit("getVideoId", e);
+      this.$store.commit("goToPreviousPage", "/search/searchmv");
+      this.$router.push("/video");
+    }
   }
 };
 </script>

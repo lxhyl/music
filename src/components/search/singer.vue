@@ -25,11 +25,14 @@ export default {
       getDataFinish: false
     };
   },
+  created(){
+ this.isLogin();
+  },
   mounted() {
     const search = this.$store.state.search;
    
     this.$axios
-      .get("/api/search?keywords=" + search.keywords + "&type=" + search.select)
+      .get("http://zhangpengfan.xyz:3000/search?keywords=" + search.keywords + "&type=" + search.select)
       .then(res => {
        
         this.artists = this.artists.concat(res.data.result.artists);

@@ -30,7 +30,7 @@ export default {
     getData() {
       const keywords = this.$store.state.search.keywords;
       this.$axios
-        .get("/api/search?keywords=" + keywords)
+        .get("http://zhangpengfan.xyz:3000/search?keywords=" + keywords)
         .then(res => {
           this.songs = this.songs.concat(res.data.result.songs);
           this.getDataFinish = true;

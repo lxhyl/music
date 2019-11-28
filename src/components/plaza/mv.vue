@@ -55,23 +55,22 @@
 </template>
 <script>
 export default {
-  name:'plazaMv',
+  name: "plazaMv",
   data() {
     return {
-  
       getPersonalized: false,
       goToPlayMv: true,
-     //推荐MV
+      //推荐MV
       personalizedMv: [],
       //最新mv
-      newMv:[]
+      newMv: []
     };
   },
   created() {
-    
+    this.isLogin();
     //推荐MV
     this.$axios
-      .get("/api/personalized/mv")
+      .get("http://zhangpengfan.xyz:3000/personalized/mv")
       .then(res => {
         this.personalizedMv = this.personalizedMv.concat(res.data.result);
         this.getPersonalized = true;
@@ -81,11 +80,10 @@ export default {
       });
     //最新MV
     this.$axios
-      .get("/api/mv/first?limit=10")
+      .get("http://zhangpengfan.xyz:3000/mv/first?limit=10")
       .then(res => {
-      
-       this.newMv = this.newMv.concat(res.data.data);
-       this.getPersonalized = true;
+        this.newMv = this.newMv.concat(res.data.data);
+        this.getPersonalized = true;
       })
       .catch(err => {
         console.log(err);
@@ -96,16 +94,16 @@ export default {
     goToHome() {
       this.$router.push("plaza");
     },
-    
+
     getPersonalizedMv(e) {
       this.goToPlayMv = false;
       this.$axios
-        .get("/api/mv/detail?mvid=" + e)
+        .get("http://zhangpengfan.xyz:3000/mv/detail?mvid=" + e)
         .then(res => {
           this.$store.commit("getMvId", res.data.data.id);
           this.$store.commit("goToPreviousPage", "mv");
           this.$router.push("/playmv");
-           this.goToPlayMv = true;
+          this.goToPlayMv = true;
         })
         .catch(err => {
           console.log(err);
@@ -119,13 +117,12 @@ export default {
   display: flex;
   width: 100%;
   flex-wrap: wrap;
-   
 }
 .mvItem {
   width: 46%;
   margin: 0 2%;
   position: relative;
-  margin-bottom:10px;
+  margin-bottom: 10px;
 }
 .el-divider {
   margin: 0 10px;
@@ -140,7 +137,7 @@ export default {
   z-index: 999;
   color: #fafafa;
 }
-p{
+p {
   font-size: 13px;
 }
 </style>

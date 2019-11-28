@@ -11,7 +11,7 @@
           <el-input v-model="login.password" show-password placeholder="输入密码"></el-input>
         </el-form-item>
 
-        <el-button @click="ok" type="primary" plain  style="color:#FAFAFA">确定</el-button>
+        <el-button @click="ok" type="primary" plain style="color:#FAFAFA">确定</el-button>
       </el-form>
     </el-main>
   </div>
@@ -32,14 +32,29 @@ export default {
     // if (id != "") {
     //   this.$router.push("home");
     // }
-      this.$store.commit("getUserId", id);
+    this.$store.commit("getUserId", id);
   },
-  
+  created() {
+    var login = JSON.parse(localStorage.getItem("user"));
+   
+    this.$axios
+      .get(
+        "http://zhangpengfan.xyz:3000/login/cellphone?phone=" +
+          login.phone +
+          "&password=" +
+          login.password
+      )
+      .then(res => {
+        this.$store.commit("getUserId", res.data.account.id);
+        this.$router.push("home");
+      });
+  },
   methods: {
     ok() {
+      const _this = this;
       // 获取用户id
-        // localStorage.clear();
-        // console.log(JSON.parse(localStorage.getItem('id')))
+      // localStorage.clear();
+      // console.log(JSON.parse(localStorage.getItem('id')))
 
       if (!/^1[3456789]\d{9}$/.test(this.login.phone)) {
         this.$message({
@@ -54,20 +69,18 @@ export default {
       } else {
         this.$axios
           .get(
-            "/api/login/cellphone?phone=" +
+            "http://zhangpengfan.xyz:3000/login/cellphone?phone=" +
               this.login.phone +
               "&password=" +
               this.login.password
           )
           .then(res => {
-            console.log(res)
             //获取用户ID传入store
             this.$store.commit("getUserId", res.data.account.id);
             const id = res.data.account.id;
             //将用户ID本地存储
             localStorage.setItem("id", JSON.stringify(id));
-            //设置cookie
-
+            localStorage.setItem("user", JSON.stringify(_this.login));
 
             this.$message({
               message: "登陆成功",
@@ -76,7 +89,7 @@ export default {
             this.$router.push("home");
           })
           .catch(err => {
-            console.log(err.message);
+          
             var msg = err.message;
             var arr = msg.split(" ");
             console.log(arr);

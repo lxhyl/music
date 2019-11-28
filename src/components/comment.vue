@@ -44,9 +44,10 @@ export default {
     };
   },
   created() {
+     this.isLogin();
     const id = this.$store.state.songId;
     this.$axios
-      .get("/api/comment/music?id=" + id)
+      .get("http://zhangpengfan.xyz:3000/comment/music?id=" + id)
       .then(res => {
         this.hotComments = this.hotComments.concat(res.data.hotComments);
         this.comments = this.comments.concat(res.data.comments);

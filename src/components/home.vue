@@ -29,13 +29,18 @@
             <i class="el-icon-mobile-phone"></i>
           </el-divider>
 
-          <div>
+          <div style="height:40vh">
             <p @click="goToPlaza">
               <i class="el-icon-s-help"></i>广场
             </p>
             <p @click="goToDj">
               <i class="el-icon-s-help"></i>电台
             </p>
+          </div>
+          <div  >
+             <p @click="goToAbout">
+             <i class="el-icon-info"></i>关于
+             </p>
           </div>
         
         </el-drawer>
@@ -133,15 +138,15 @@ export default {
       deleteSongListOK: true
     };
   },
-  
+  created(){
+     this.isLogin();
+  },
   mounted() {
-    
-
     //拿到用户ID
     const id = JSON.parse(localStorage.getItem("id"));
     //获取用户信息
     this.$axios
-      .get("/api/user/detail?uid=" + id)
+      .get("http://zhangpengfan.xyz:3000/user/detail?uid=" + id)
       .then(res => {
       
         this.userDetail = res.data;
@@ -153,7 +158,7 @@ export default {
       });
     //获取用户歌单信息
     this.$axios
-      .get("/api/user/playlist?uid=" + id)
+      .get("http://zhangpengfan.xyz:3000/user/playlist?uid=" + id)
       .then(res => {
         this.playList = this.playList.concat(res.data.playlist);
       })
@@ -181,6 +186,12 @@ export default {
       this.$store.commit("goToPreviousPage", "home");
       this.$router.push("fm");
     },
+    //关于
+    goToAbout(){
+        this.dialog = false;
+        this.$store.commit("goToPreviousPage", "home");
+        this.$router.push("about");
+    },
     //搜索
     goToSearch() {
       this.$router.push("search");
@@ -195,7 +206,7 @@ export default {
         });
       } else {
         this.$axios
-          .get("/api/playlist/create?name=" + this.songListName)
+          .get("http://zhangpengfan.xyz:3000/playlist/create?name=" + this.songListName)
           .then(res => {
             this.dialogFormVisible = false;
             this.$message({
@@ -204,7 +215,7 @@ export default {
             });
           })
           .catch(err => {
-            console.log(err);
+           
           });
       }
     },
@@ -222,9 +233,9 @@ export default {
       })
         .then(() => {
           this.$axios
-            .get("/api/playlist/delete?id=" + id)
+            .get("http://zhangpengfan.xyz:3000/playlist/delete?id=" + id)
             .then(res => {
-              console.log(res);
+             
               this.playList.splice(index, 1);
               this.$message({
                 type: "success",
@@ -232,7 +243,7 @@ export default {
               });
             })
             .catch(err => {
-              console.log(err);
+            
             });
         })
         .catch(() => {

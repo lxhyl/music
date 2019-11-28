@@ -1,12 +1,14 @@
 import Vue from 'vue';
 import App from './App.vue';
+
 //axios
 import axios from 'axios';
 Vue.prototype.$axios = axios;
+axios.defaults.withCredentials =true;
+
 //路由
 import VueRouter from 'vue-router';
 import router from './router/router';
-
 Vue.use(VueRouter);
 
 //vuex
@@ -20,11 +22,12 @@ Vue.use(ElementUI);
 Vue.config.productionTip = false
 
 new Vue({
-
   router,
   store,
   render: h => h(App),
 }).$mount('#app')
+
+
 
 //过滤器
 Vue.filter('toTime', function (e) {
@@ -46,11 +49,25 @@ Vue.filter('toTime', function (e) {
   }
   return new Date(e).Format('yy-MM-dd hh:mm:ss');
 })
+
 Vue.filter('toMS', function (e) {
  
   const m = parseInt(e / 60);
   var  s = e - m * 60;
   s =  s < 10 ? '0'+s : s;
   return m + ":" + s
-  
 })
+
+//判断是否登陆
+Vue.prototype.isLogin = function(){
+  var user = JSON.parse(localStorage.getItem('user'));
+  if(user== null){
+    this.$router.push('/')
+    this.$message({
+      message:"请登录",
+      type: "warning"
+    });
+  }else {
+    console.log('2')
+  }
+}
