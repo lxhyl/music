@@ -3,7 +3,7 @@
     <div v-if="getDataFinish">
       <el-header>
         <p style="width:100%;height:40px;line-height:40px;">
-        <i class="el-icon-back" @click="goToHome" style="position:absolute;left:20px;"></i>
+        <i class="el-icon-back" @click="goToHome" style="position:absolute;left:20px;font-size:30px;"></i>
          {{ name }}
       </p>
       </el-header>

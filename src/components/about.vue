@@ -2,7 +2,7 @@
   <div>
     <el-header>
       <p style="width:100%;height:40px;line-height:40px;">
-        <i class="el-icon-back" @click="goToHome" style="position:absolute;left:20px;"></i>
+        <i class="el-icon-back" @click="goToHome" style="font-size:30px;position:absolute;left:20px;"></i>
         关于
       </p>
     </el-header>
@@ -56,7 +56,7 @@ export default {
           type: "primary",
           icon: "el-icon-more"
         },{
-          content: "判断是否登陆",
+          content: "判断是否登陆,播放评论",
           version: "Version 0.2.1",
           size: "large",
           type: "primary",

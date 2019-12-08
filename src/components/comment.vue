@@ -2,7 +2,7 @@
   <div>
     <el-header>
       <p style="margin:10px;font-size:14px;line-height:40px;">
-        <i class="el-icon-back" @click="goToPlay" style="position:absolute;left:20px;"></i>
+        <i class="el-icon-back" @click="goToPlay" style="font-size:30px;position:absolute;left:20px;"></i>
         评论
       </p>
     </el-header>

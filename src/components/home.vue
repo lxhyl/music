@@ -20,11 +20,9 @@
                   粉丝{{userDetail.profile.followeds}}
                 </span>
               </span>
-             
             </p>
-          
           </div>
-            
+
           <el-divider>
             <i class="el-icon-mobile-phone"></i>
           </el-divider>
@@ -37,12 +35,11 @@
               <i class="el-icon-s-help"></i>电台
             </p>
           </div>
-          <div  >
-             <p @click="goToAbout">
-             <i class="el-icon-info"></i>关于
-             </p>
+          <div>
+            <p @click="goToAbout">
+              <i class="el-icon-info"></i>关于
+            </p>
           </div>
-        
         </el-drawer>
         <img @click="dialog = true" src="../assets/Music.png" class="logo" />
 
@@ -82,7 +79,6 @@
                 <el-button @click="addNewSongList" size="mini">确 定</el-button>
               </div>
             </el-dialog>
-            
           </p>
 
           <el-card v-for="(item,index) in playList" :key="index">
@@ -138,19 +134,32 @@ export default {
       deleteSongListOK: true
     };
   },
-  created(){
-     this.isLogin();
+  created() {
+  
+    // var i = 0;
+    // var j = 0;
+    //  for(let a=0;a<1000;a++){
+    //  this.$axios.get('http://zhangpengfan.xyz:3000/scrobble?id=1397345903&sourceid=980150611&time=180')
+    //  .then(res => {
+    //    i++
+    //    console.log('成功'+i+'次');
+    //  })
+    //  .catch( err => {
+    //    j++
+    //    console.log('失败'+j+'次')
+    //  })
+    //  }
   },
   mounted() {
+
+    this.isLogin;
     //拿到用户ID
     const id = JSON.parse(localStorage.getItem("id"));
     //获取用户信息
     this.$axios
       .get("http://zhangpengfan.xyz:3000/user/detail?uid=" + id)
       .then(res => {
-      
         this.userDetail = res.data;
-
         this.getDateFinish = true;
       })
       .catch(err => {
@@ -181,16 +190,16 @@ export default {
       this.$router.push("plaza");
     },
     //电台
-    goToDj(){
+    goToDj() {
       this.dialog = false;
       this.$store.commit("goToPreviousPage", "home");
       this.$router.push("fm");
     },
     //关于
-    goToAbout(){
-        this.dialog = false;
-        this.$store.commit("goToPreviousPage", "home");
-        this.$router.push("about");
+    goToAbout() {
+      this.dialog = false;
+      this.$store.commit("goToPreviousPage", "home");
+      this.$router.push("about");
     },
     //搜索
     goToSearch() {
@@ -202,21 +211,25 @@ export default {
       if (this.addNewSongList == "") {
         this.$message({
           message: "不能为空",
+           showClose: true,
           type: "warning"
         });
       } else {
         this.$axios
-          .get("http://zhangpengfan.xyz:3000/playlist/create?name=" + this.songListName)
+          .get(
+            "http://zhangpengfan.xyz:3000/playlist/create?name=" +
+              this.songListName
+          )
           .then(res => {
+            _this.songListName = "";
             this.dialogFormVisible = false;
             this.$message({
               message: "已新建歌单" + _this.songListName,
-              type: "success"
+              type: "success",
+              showClose: true,
             });
           })
-          .catch(err => {
-           
-          });
+          .catch(err => {});
       }
     },
     deleteSongListMethods() {
@@ -235,20 +248,19 @@ export default {
           this.$axios
             .get("http://zhangpengfan.xyz:3000/playlist/delete?id=" + id)
             .then(res => {
-             
               this.playList.splice(index, 1);
               this.$message({
                 type: "success",
+                 showClose: true,
                 message: "删除成功!"
               });
             })
-            .catch(err => {
-            
-            });
+            .catch(err => {});
         })
         .catch(() => {
           this.$message({
             type: "info",
+             showClose: true,
             message: "已取消删除"
           });
         });
@@ -371,4 +383,5 @@ export default {
 .el-drawer__body i {
   margin: 0 10px;
 }
+
 </style>

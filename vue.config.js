@@ -5,7 +5,7 @@ module.exports = {
     publicPath: process.env.NODE_ENV === "production" ? "./" : "/",
     outputDir: "dist", //打包目录
     indexPath: "index.html",
-
+    productionSourceMap: false,
 
     // //生产环境配置
 
@@ -26,9 +26,10 @@ module.exports = {
     //         }
 
     //     }
-    // }
+    // },
     configureWebpack: config => {
         if (process.env.NODE_ENV === 'production') {
+            config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
             return {
                 plugins: [
                     new CompressionPlugin({
@@ -41,4 +42,23 @@ module.exports = {
         }
 
     },
+    chainWebpack: (config) => {
+      
+        /* 添加分析工具*/
+        if (process.env.NODE_ENV === 'production') {
+            if (process.env.npm_config_report) {
+                config
+                    .plugin('webpack-bundle-analyzer')
+                    .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+                    .end();
+                config.plugins.delete('prefetch')
+
+
+            }
+
+
+        }
+
+    }
 }
+

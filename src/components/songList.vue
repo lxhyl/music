@@ -42,7 +42,7 @@ export default {
     };
   },
   created(){
- this.isLogin();
+   this.isLogin();
   },
   mounted() {
   this.name = this.$store.state.topListName;
@@ -54,6 +54,7 @@ export default {
       .then(res => {
         this.list = this.list.concat(res.data.playlist.tracks);
         this.getDataFinish = true;
+        // console.log(this.list);
       })
       .catch(err => {
         console.log(err);

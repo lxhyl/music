@@ -2,13 +2,14 @@
   <div>
     <el-header>
       <p style="width:100%;height:40px;line-height:40px;">
-        <i class="el-icon-back" @click="goToHome" style="position:absolute;left:20px;"></i>
+        <i class="el-icon-back" @click="goToHome" style="font-size:30px;position:absolute;left:20px;"></i>
         搜索
       </p>
     </el-header>
     <el-main>
-      <p>
-        <el-input v-model="search.keywords" type="text" size="small">
+     
+        <form action="javascript:return true">
+        <el-input v-model="search.keywords" @keyup.enter.native="searchMusic" type="search" size="small">
           <el-select v-model="search.select" slot="prepend" placeholder="请选择">
             <el-option label="单曲" value="1"></el-option>
             <el-option label="歌手" value="100"></el-option>
@@ -16,7 +17,8 @@
           </el-select>
           <el-button @click="searchMusic" slot="append" icon="el-icon-search"></el-button>
         </el-input>
-      </p>
+        </form>
+   
       <div v-if="getDateFinish">
         <div v-if="test" style="margin-top:10px">
           <router-view ></router-view>
@@ -55,6 +57,7 @@ export default {
   
   created() {
     this.isLogin();
+    
   },
   mounted() {
     this.$axios
@@ -72,9 +75,7 @@ export default {
     },
 
     searchMusic() {
-      //只有input有内容
-     
-      
+      //只有input有内容 
       if (this.search.select == "") {
         if (this.search.keywords != "") {
           this.getDateFinish = true;

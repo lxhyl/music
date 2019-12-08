@@ -3,7 +3,7 @@
     <div v-if="getDataFinish">
       <el-header>
         <p style="width:100%;height:40px;line-height:40px;">
-          <i class="el-icon-back" @click="goToSongList" style="position:absolute;left:20px;"></i>
+          <i class="el-icon-back" @click="goToSongList" style="font-size:30px;position:absolute;left:20px;"></i>
           {{ songInfo[0].name }}
           <img
             v-if="likeThisSongImg"
@@ -13,7 +13,7 @@
           <img v-else @click="likeThisSong" src="../assets/like.png" class="likeSong" />
         </p>
       </el-header>
-
+     
       <div>
         <img class="songimg" :src="songInfo[0].al.picUrl" />
         <div class="musicWords" ref="lyricList">
@@ -47,13 +47,10 @@
             <i class="el-icon-mobile-phone"></i>
           </el-divider>
 
-          <div style="color:#9E9E9E">
-            建设中。。。
-            <p>1:切换歌曲为切换至相似的歌曲</p>
-          </div>
+          <danmu class="danmu"/>
 
           <p v-if="getMusicUrlFinish">
-            <audio ref="audio" id="music" controls="controls" autoplay :src="songUrl[0].url" hidden></audio>
+            <audio ref="audio" id="music" controls="controls" autoplay :src="songUrl" hidden></audio>
           </p>
         </div>
       </div>
@@ -69,8 +66,14 @@
 import { constants } from "crypto";
 
 import Lyric from "lyric-parser";
+
+//弹幕
+import danmu from "./danmu";
 export default {
   inject: ["reload"],
+  components:{
+     danmu
+  },
   name: "play",
   data() {
     return {
@@ -103,6 +106,7 @@ export default {
     };
   },
   created() {
+
      this.isLogin();
     //歌曲详情
     this.songId = this.$store.state.songId;
@@ -119,7 +123,10 @@ export default {
     this.$axios
       .get("http://zhangpengfan.xyz:3000/song/url?id=" + this.songId)
       .then(res => {
-        this.songUrl = this.songUrl.concat(res.data.data);
+     
+        this.songUrl = res.data.data[0].url;
+        console.log(this.songUrl);
+       
         this.getMusicUrlFinish = true;
       })
       .catch(err => {
@@ -280,7 +287,8 @@ export default {
          
         });
     }
-  }
+  },
+  
 };
 </script>
 <style scoped>
@@ -340,5 +348,14 @@ export default {
 }
 .el-slider {
   margin: 0 40px;
+}
+.danmu{
+  font-size: 13px;
+  line-height: 20px;
+  text-align: left;
+  text-indent: 30px;
+}
+.danmu{
+  margin:0 20px;
 }
 </style>

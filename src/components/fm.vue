@@ -2,7 +2,7 @@
   <div>
     <el-header>
       <p style="width:100%;height:40px;line-height:40px;">
-        <i class="el-icon-back" @click="goToHome" style="position:absolute;left:20px;"></i>
+        <i class="el-icon-back" @click="goToHome" style="font-size:30px;position:absolute;left:20px;"></i>
         电台
       </p>
     </el-header>

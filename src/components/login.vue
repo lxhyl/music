@@ -35,8 +35,8 @@ export default {
     this.$store.commit("getUserId", id);
   },
   created() {
-    var login = JSON.parse(localStorage.getItem("user"));
-   
+    var login = JSON.parse(localStorage.getItem("user"));   
+    if(login != null) { 
     this.$axios
       .get(
         "http://zhangpengfan.xyz:3000/login/cellphone?phone=" +
@@ -48,6 +48,7 @@ export default {
         this.$store.commit("getUserId", res.data.account.id);
         this.$router.push("home");
       });
+    }
   },
   methods: {
     ok() {
@@ -59,11 +60,13 @@ export default {
       if (!/^1[3456789]\d{9}$/.test(this.login.phone)) {
         this.$message({
           message: "手机号格式错误",
+           showClose: true,
           type: "warning"
         });
       } else if (this.login.password == "") {
         this.$message({
           message: "密码不能为空",
+           showClose: true,
           type: "warning"
         });
       } else {
@@ -84,6 +87,7 @@ export default {
 
             this.$message({
               message: "登陆成功",
+               showClose: true,
               type: "success"
             });
             this.$router.push("home");
@@ -96,18 +100,21 @@ export default {
             if (arr[5] == "509") {
               this.$message({
                 message: "密码错误次数超过限制",
+                 showClose: true,
                 type: "warning"
               });
             }
             if (arr[5] == "502") {
               this.$message({
                 message: "密码错误",
+                 showClose: true,
                 type: "warning"
               });
             }
             if (arr[5] == "501") {
               this.$message({
                 message: "账号不存在",
+                 showClose: true,
                 type: "warning"
               });
             }

@@ -15,10 +15,54 @@ Vue.use(VueRouter);
 import store from './store/index'
 
 //饿了么UI
-import ElementUI from 'element-ui';
+// import ElementUI from 'element-ui';
+// Vue.use(ElementUI);
 import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI);
-
+import {
+  Dialog,
+  Card,
+  Divider,
+  Header,
+  Main,
+  Image,
+  Carousel,
+  CarouselItem,
+  Input,
+  Button,
+  Select,
+  Form,
+  FormItem,
+  Message,
+  Timeline,
+  TimelineItem,
+  Avatar,
+  Drawer,
+  Option,
+  MessageBox,
+  Slider,
+} from 'element-ui';
+Vue.use(Dialog);
+Vue.use(Card);
+Vue.use(Divider);
+Vue.use(Header);
+Vue.use(Main);
+Vue.use(Image);
+Vue.use(Carousel);
+Vue.use(CarouselItem);
+Vue.use(Input);
+Vue.use(Button);
+Vue.use(Select);
+Vue.use(Form);
+Vue.use(FormItem);
+Vue.use(Timeline);
+Vue.use(TimelineItem);
+Vue.use(Avatar);
+Vue.use(Drawer);
+Vue.use(Option);
+Vue.use(Slider);
+Vue.prototype.$message = Message;
+Vue.prototype.$msgbox = MessageBox;
+Vue.prototype.$confirm = MessageBox.confirm;
 Vue.config.productionTip = false
 
 new Vue({
@@ -50,8 +94,8 @@ Vue.filter('toTime', function (e) {
   return new Date(e).Format('yy-MM-dd hh:mm:ss');
 })
 
+//歌曲时长格式化
 Vue.filter('toMS', function (e) {
- 
   const m = parseInt(e / 60);
   var  s = e - m * 60;
   s =  s < 10 ? '0'+s : s;
@@ -67,7 +111,6 @@ Vue.prototype.isLogin = function(){
       message:"请登录",
       type: "warning"
     });
-  }else {
-    console.log('2')
   }
 }
+
