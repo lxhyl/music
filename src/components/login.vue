@@ -14,6 +14,10 @@
         <el-button @click="ok" type="primary" plain style="color:#FAFAFA">确定</el-button>
       </el-form>
     </el-main>
+     <el-divider>
+            <i class="el-icon-mobile-phone"></i>
+          </el-divider>
+    <footer> <el-link href="http://www.beian.miit.gov.cn">桂ICP备18010807号-1</el-link> </footer>
   </div>
 </template>
 <script>

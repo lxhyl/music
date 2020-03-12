@@ -14,6 +14,7 @@ Vue.use(VueRouter);
 //vuex
 import store from './store/index'
 
+
 //饿了么UI
 // import ElementUI from 'element-ui';
 // Vue.use(ElementUI);
@@ -40,6 +41,7 @@ import {
   Option,
   MessageBox,
   Slider,
+  Link,
 } from 'element-ui';
 Vue.use(Dialog);
 Vue.use(Card);
@@ -60,6 +62,7 @@ Vue.use(Avatar);
 Vue.use(Drawer);
 Vue.use(Option);
 Vue.use(Slider);
+Vue.use(Link)
 Vue.prototype.$message = Message;
 Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$confirm = MessageBox.confirm;

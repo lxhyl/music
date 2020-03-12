@@ -112,6 +112,7 @@
   </div>
 </template>
 <script>
+
 export default {
   name: "home",
 
@@ -135,7 +136,7 @@ export default {
     };
   },
   created() {
-  
+
     // var i = 0;
     // var j = 0;
     //  for(let a=0;a<1000;a++){

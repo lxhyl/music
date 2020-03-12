@@ -4,7 +4,7 @@
     <keep-alive include="home,plaza,plazaMv,plazaTop,plazaRecommend">
     <router-view v-if="isRouterAlive" ></router-view>
     </keep-alive>
-    <div class="playBar" v-if="openPlayBar"></div>
+   
   </div>
 </template>
 
